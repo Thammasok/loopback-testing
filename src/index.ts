@@ -1,6 +1,10 @@
 import {ApplicationConfig, LoopbackTestingApplication} from './application';
 
+// re-exports for our benchmark, not needed for the tutorial itself
+export * from '@loopback/rest';
 export * from './application';
+export * from './models';
+export * from './repositories';
 
 export async function main(options: ApplicationConfig = {}) {
   const app = new LoopbackTestingApplication(options);
@@ -9,8 +13,6 @@ export async function main(options: ApplicationConfig = {}) {
 
   const url = app.restServer.url;
   console.log(`Server is running at ${url}`);
-  console.log(`Try ${url}/ping`);
-
   return app;
 }
 

@@ -5,12 +5,12 @@ describe('Calculate Services', function (this: Mocha.Suite) {
   // let service: SimpleService;
 
   it('calculate sum', async () => {
-    // Assign
+    // Arrange
     const numberOne = 1;
     const numberTwo = 2;
     const expected = 3;
 
-    // Arrange
+    // Act
     const calculateService = new CalculateService();
     const result = calculateService.sum(numberOne, numberTwo);
 
@@ -19,12 +19,12 @@ describe('Calculate Services', function (this: Mocha.Suite) {
   });
 
   it('two sum check result found', async () => {
-    // Assign
+    // Arrange
     const number = [2, 7, 11, 15];
     const target = 9;
     const expected: Array<number> = [0, 1];
 
-    // Arrange
+    // Act
     const calculateService = new CalculateService();
     const result = calculateService.twoSum(number, target);
 
@@ -33,12 +33,12 @@ describe('Calculate Services', function (this: Mocha.Suite) {
   });
 
   it('two sum check result not found', async () => {
-    // Assign
+    // Arrange
     const number = [3, 7, 10, 5];
     const target = 9;
     const expected: Array<number> = [];
 
-    // Arrange
+    // Act
     const calculateService = new CalculateService();
     const result = calculateService.twoSum(number, target);
 

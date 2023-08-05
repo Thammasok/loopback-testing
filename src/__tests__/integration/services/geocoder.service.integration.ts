@@ -1,8 +1,3 @@
-// Copyright IBM Corp. and LoopBack contributors 2019,2020. All Rights Reserved.
-// Node module: @loopback/example-todo
-// This file is licensed under the MIT License.
-// License text available at https://opensource.org/licenses/MIT
-
 import {expect} from '@loopback/testlab';
 import {GeocoderDataSource} from '../../../datasources';
 import {Geocoder, GeocoderProvider} from '../../../services';

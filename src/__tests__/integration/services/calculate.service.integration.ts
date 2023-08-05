@@ -18,11 +18,25 @@ describe('Calculate Services', function (this: Mocha.Suite) {
     expect(result).to.equal(expected);
   });
 
-  it('two sum check result', async () => {
+  it('two sum check result found', async () => {
     // Assign
     const number = [2, 7, 11, 15];
     const target = 9;
-    const expected = [0, 1];
+    const expected: Array<number> = [0, 1];
+
+    // Arrange
+    const calculateService = new CalculateService();
+    const result = calculateService.twoSum(number, target);
+
+    // Assert
+    expect(result).to.deepEqual(expected);
+  });
+
+  it('two sum check result not found', async () => {
+    // Assign
+    const number = [3, 7, 10, 5];
+    const target = 9;
+    const expected: Array<number> = [];
 
     // Arrange
     const calculateService = new CalculateService();

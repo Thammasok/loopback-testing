@@ -35,7 +35,6 @@ export class CalculateService {
       map.set(nums[i], i);
     }
 
-    // return [];
-    throw new Error('not match');
+    return [];
   }
 }

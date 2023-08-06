@@ -100,4 +100,22 @@ describe('Calculate Services', function (this: Mocha.Suite) {
     // Assert
     expect(result).to.equal(expected);
   });
+
+  it('calculate sum and minus with spy', async () => {
+    // Arrange
+    const numberOne = 1;
+    const numberTwo = 2;
+    // (nummerOne + numberTwo) - numberOne
+    // const expected = 2;
+
+    // Mock sum Function
+    const calculateService = new CalculateService();
+    const sumSpied = sinon.spy(calculateService, 'sum');
+
+    // Act
+    calculateService.sumAndMinus(numberOne, numberTwo);
+
+    // Assert
+    expect(sumSpied.called).to.be.true();
+  });
 });

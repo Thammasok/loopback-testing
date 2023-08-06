@@ -1,3 +1,5 @@
+/* eslint-disable mocha/handle-done-callback */
+
 import {expect} from '@loopback/testlab';
 import {GeocoderDataSource} from '../../../datasources';
 import {Geocoder, GeocoderProvider} from '../../../services';
@@ -24,7 +26,6 @@ describe('GeoLookupService', function (this: Mocha.Suite) {
     available = await isGeoCoderServiceAvailable(service);
   });
 
-  // eslint-disable-next-line mocha/handle-done-callback
   it('resolves an address to a geo point', async function (this: Mocha.Context) {
     if (!available) return this.skip();
 

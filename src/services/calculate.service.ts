@@ -4,13 +4,6 @@ import {/* inject, */ BindingScope, injectable} from '@loopback/core';
 export class CalculateService {
   constructor(/* Add @inject to inject parameters */) {}
 
-  /*
-   * Add service methods here
-   */
-  sum(numberOne: number, numberTwo: number): number {
-    return numberOne + numberTwo;
-  }
-
   /**
    * Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
    * You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -36,5 +29,26 @@ export class CalculateService {
     }
 
     return [];
+  }
+
+  /**
+   * Summary two number
+   * @param numberOne
+   * @param numberTwo
+   * @returns
+   */
+  sum(numberOne: number, numberTwo: number): number {
+    return numberOne + numberTwo;
+  }
+
+  /**
+   * (nummerOne + numberTwo) - numberOne
+   * @param numberOne
+   * @param numberTwo
+   * @returns
+   */
+  sumAndMinus(numberOne: number, numberTwo: number) {
+    const result = this.sum(numberOne, numberTwo);
+    return result - numberOne;
   }
 }

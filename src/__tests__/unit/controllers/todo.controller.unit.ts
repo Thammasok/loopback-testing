@@ -83,6 +83,7 @@ describe('TodoController', () => {
     it('returns multiple todos if they exist', async () => {
       const find = todoRepo.stubs.find;
       find.resolves(aListOfTodos);
+
       expect(await controller.find()).to.eql(aListOfTodos);
       sinon.assert.called(find);
     });
@@ -134,10 +135,13 @@ describe('TodoController', () => {
 
   function resetRepositories() {
     todoRepo = createStubInstance(TodoRepository);
+
     aTodo = givenTodo();
+
     aTodoWithId = givenTodo({
       id: 1,
     });
+
     aListOfTodos = [
       aTodoWithId,
       givenTodo({
@@ -145,6 +149,7 @@ describe('TodoController', () => {
         title: 'so many things to do',
       }),
     ] as Todo[];
+
     aChangedTodo = givenTodo({
       id: aTodoWithId.id,
       title: 'Do some important things',

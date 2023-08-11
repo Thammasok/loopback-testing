@@ -30,12 +30,18 @@ import {Geocoder, GeoPoint} from '../services';
  * @param todo - A partial (or complete) Todo object.
  */
 export function givenTodo(todo?: Partial<Todo>) {
+  // 2. ข้อมูลที่ต้องการ Add
   const data = Object.assign(
     {
       title: 'do a thing',
       desc: 'There are some things that need doing',
       isComplete: false,
+
+      // 4. เพิ่ม ID เข้ามา
+      // id: 1 -> givenTodo({ id: 1 })
     },
+
+    // 2.1 givenTodo() ยังไม่มีข้อมูลใส่ลงไป
     todo,
   );
   return new Todo(data);

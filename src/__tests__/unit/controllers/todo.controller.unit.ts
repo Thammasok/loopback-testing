@@ -83,7 +83,9 @@ describe('TodoController', () => {
     it('returns multiple todos if they exist', async () => {
       const find = todoRepo.stubs.find;
       find.resolves(aListOfTodos);
-      expect(await controller.find()).to.eql(aListOfTodos);
+      const result = await controller.find();
+      console.log('result TODO', result);
+      expect(result).to.eql(aListOfTodos);
       sinon.assert.called(find);
     });
 
@@ -134,17 +136,26 @@ describe('TodoController', () => {
 
   function resetRepositories() {
     todoRepo = createStubInstance(TodoRepository);
+    // 1. ข้อมูลที่ต้องการ Add
     aTodo = givenTodo();
+
+    // 3. เพิ่ม ID
     aTodoWithId = givenTodo({
       id: 1,
     });
+
+    // 5. เพิ่มข้อมูลใหม่ลงไป
     aListOfTodos = [
+      // 5.1 ข้อมูลแรก
       aTodoWithId,
+      // 5.2 ข้อมูลที่ 2 ที่ Add เพิ่ม
       givenTodo({
         id: 2,
         title: 'so many things to do',
       }),
     ] as Todo[];
+
+    // 6. เปลี่ยนข้อมูล
     aChangedTodo = givenTodo({
       id: aTodoWithId.id,
       title: 'Do some important things',

@@ -73,3 +73,47 @@ application, follow these steps:
 Feel free to look around in the application's code to get a feel for how it
 works. If you're interested in learning how to build it step-by-step, then
 continue with this tutorial!
+
+---
+
+## Docker
+
+Run Docker-compose
+
+```bash
+docker-compose up -d
+```
+
+หลังจากที่ Run Docker ขึ้นมาแล้ว สามารถเข้าใช้งาน pgadmin ได้ผ่าน URL <http://localhost:5050/>
+
+```text
+username: admin@example.com
+password: example
+```
+
+Login เข้าใช้งาน Postgress
+
+เริ่มจากการค้นหา IP Address
+
+```bash
+docker container ps
+
+docker inspect CONTAINER_ID [ของ Postgress]
+```
+
+หา Gateway
+
+```text
+host: Gateway of Postgress [ex. 172.27.0.2]
+port: 5432
+
+username: admin
+password: example
+```
+
+Stop Docker-compose
+
+```bash
+docker-compose down -v
+```
+

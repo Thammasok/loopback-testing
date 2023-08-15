@@ -84,7 +84,6 @@ describe('TodoController', () => {
       const find = todoRepo.stubs.find;
       find.resolves(aListOfTodos);
       const result = await controller.find();
-      console.log('result TODO', result);
       expect(result).to.eql(aListOfTodos);
       sinon.assert.called(find);
     });

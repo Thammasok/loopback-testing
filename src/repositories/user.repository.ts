@@ -1,6 +1,6 @@
 import {inject} from '@loopback/core';
 import {DefaultCrudRepository} from '@loopback/repository';
-import {UserDataSource} from '../datasources';
+import {PgDataSource} from '../datasources';
 import {User, UserRelations} from '../models';
 
 export class UserRepository extends DefaultCrudRepository<
@@ -8,9 +8,7 @@ export class UserRepository extends DefaultCrudRepository<
   typeof User.prototype.id,
   UserRelations
 > {
-  constructor(
-    @inject('datasources.user') dataSource: UserDataSource,
-  ) {
+  constructor(@inject('datasources.postgresql') dataSource: PgDataSource) {
     super(User, dataSource);
   }
 }

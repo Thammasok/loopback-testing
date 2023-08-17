@@ -87,10 +87,17 @@ export class CargoController {
   async checkPayload(
     @requestBody() payload: {cargoId: number; weight: number},
   ): Promise<object> {
-    const cargo = await this.cargoRepository.findById(payload.cargoId);
+    // get cargo in controller and check in service
+    // const cargo = await this.cargoRepository.findById(payload.cargoId);
 
-    const result = this.cargoService.checkPayload(
-      {min: cargo.min, max: cargo.max},
+    // const result = this.cargoService.checkPayload(
+    //   {min: cargo.min, max: cargo.max},
+    //   payload.weight,
+    // );
+
+    // get & check payload in service
+    const result = await this.cargoService.checkPayloadByCargoId(
+      payload.cargoId,
       payload.weight,
     );
     return {

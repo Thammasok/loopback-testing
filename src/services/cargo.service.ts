@@ -1,10 +1,13 @@
 import {/* inject, */ BindingScope, injectable} from '@loopback/core';
+import {repository} from '@loopback/repository';
+import {CargoRepository} from '../repositories';
 
 @injectable({scope: BindingScope.TRANSIENT})
 export class CargoService {
-  // constructor(
-  //   @repository(CargoRepository) public cargoRepository: CargoRepository,
-  // ) {}
+  constructor(
+    @repository(CargoRepository)
+    public cargoRepository: CargoRepository,
+  ) {}
 
   /**
    * function ตรวจสอบน้ำหนักบรรทุกของรถ [carWeight]
@@ -19,11 +22,16 @@ export class CargoService {
     return !(carWeight < min || carWeight > max);
   }
 
-  // async checkPayloadByCargoId(cargoId: number, weight: number) {
-  //   const cargo = await this.cargoRepository.findById(cargoId);
-
-  //   if (cargo) {
-  //     return !(weight < cargo.min || weight > cargo.max);
-  //   }
-  // }
+  async checkPayloadByCargoId(cargoId: number, weight: number) {
+    try {
+      console.log('cargoDetail', cargoId, weight);
+      const cargoDetail = await this.cargoRepository.findById(cargoId);
+      console.log('cargoDetail', cargoDetail);
+      if (cargoDetail) {
+        return !(weight < cargoDetail.min || weight > cargoDetail.max);
+      }
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
 }

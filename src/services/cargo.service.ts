@@ -2,7 +2,9 @@ import {/* inject, */ BindingScope, injectable} from '@loopback/core';
 
 @injectable({scope: BindingScope.TRANSIENT})
 export class CargoService {
-  constructor(/* Add @inject to inject parameters */) {}
+  // constructor(
+  //   @repository(CargoRepository) public cargoRepository: CargoRepository,
+  // ) {}
 
   /**
    * function ตรวจสอบน้ำหนักบรรทุกของรถ [carWeight]
@@ -16,4 +18,12 @@ export class CargoService {
 
     return !(carWeight < min || carWeight > max);
   }
+
+  // async checkPayloadByCargoId(cargoId: number, weight: number) {
+  //   const cargo = await this.cargoRepository.findById(cargoId);
+
+  //   if (cargo) {
+  //     return !(weight < cargo.min || weight > cargo.max);
+  //   }
+  // }
 }

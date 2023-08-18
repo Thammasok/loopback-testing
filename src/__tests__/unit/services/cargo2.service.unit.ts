@@ -26,9 +26,6 @@ describe('Cargo service with Repository', () => {
       max: 25000,
     });
 
-    // cargoRepository2 = createStubInstance(CargoRepository);
-    // cargoService = new CargoService(cargoRepository2);
-
     // Stub FindById
     const findById = cargoRepository2.stubs.findById;
     findById.resolves(cargoDetail);
@@ -51,9 +48,6 @@ describe('Cargo service with Repository', () => {
       max: 25000,
     });
 
-    // cargoRepository2 = createStubInstance(CargoRepository);
-    // cargoService = new CargoService(cargoRepository2);
-
     // Stub FindById
     const findById = cargoRepository2.stubs.findById;
     findById.resolves(cargoDetail);
@@ -75,9 +69,6 @@ describe('Cargo service with Repository', () => {
       min: 10000,
       max: 25000,
     });
-
-    // cargoRepository2 = createStubInstance(CargoRepository);
-    // cargoService = new CargoService(cargoRepository2);
 
     // Stub FindById
     const findById = cargoRepository2.stubs.findById;

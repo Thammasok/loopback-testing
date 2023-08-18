@@ -82,6 +82,10 @@ Run Docker-compose
 
 ```bash
 docker-compose up -d
+
+or
+
+docker-compose up -d --force-recreate
 ```
 
 หลังจากที่ Run Docker ขึ้นมาแล้ว สามารถเข้าใช้งาน pgadmin ได้ผ่าน URL <http://localhost:5050/>

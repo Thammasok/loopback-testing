@@ -13,9 +13,7 @@ describe('Cargo service with Repository', () => {
   // 1. create cargoRepository
   let cargoRepository2: StubbedInstanceWithSinonAccessor<CargoRepository>;
 
-  beforeEach(async () => {
-    sinon.restore();
-  });
+  beforeEach(resetRepositories);
 
   it('คีย์น้ำหนักน้อยกว่า ค่าน้ำหนักต่ำสุด (Min) ของรถส่งของ', async () => {
     const cargoId = 1;
@@ -28,8 +26,8 @@ describe('Cargo service with Repository', () => {
       max: 25000,
     });
 
-    cargoRepository2 = createStubInstance(CargoRepository);
-    cargoService = new CargoService(cargoRepository2);
+    // cargoRepository2 = createStubInstance(CargoRepository);
+    // cargoService = new CargoService(cargoRepository2);
 
     // Stub FindById
     const findById = cargoRepository2.stubs.findById;
@@ -53,8 +51,8 @@ describe('Cargo service with Repository', () => {
       max: 25000,
     });
 
-    cargoRepository2 = createStubInstance(CargoRepository);
-    cargoService = new CargoService(cargoRepository2);
+    // cargoRepository2 = createStubInstance(CargoRepository);
+    // cargoService = new CargoService(cargoRepository2);
 
     // Stub FindById
     const findById = cargoRepository2.stubs.findById;
@@ -78,8 +76,8 @@ describe('Cargo service with Repository', () => {
       max: 25000,
     });
 
-    cargoRepository2 = createStubInstance(CargoRepository);
-    cargoService = new CargoService(cargoRepository2);
+    // cargoRepository2 = createStubInstance(CargoRepository);
+    // cargoService = new CargoService(cargoRepository2);
 
     // Stub FindById
     const findById = cargoRepository2.stubs.findById;
@@ -91,4 +89,9 @@ describe('Cargo service with Repository', () => {
     expect(result).to.be.false();
     sinon.assert.calledWith(findById, cargoDetail.id);
   });
+
+  function resetRepositories() {
+    cargoRepository2 = createStubInstance(CargoRepository);
+    cargoService = new CargoService(cargoRepository2);
+  }
 });

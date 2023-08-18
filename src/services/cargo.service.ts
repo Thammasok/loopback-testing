@@ -24,9 +24,8 @@ export class CargoService {
 
   async checkPayloadByCargoId(cargoId: number, weight: number) {
     try {
-      console.log('cargoDetail', cargoId, weight);
       const cargoDetail = await this.cargoRepository.findById(cargoId);
-      console.log('cargoDetail', cargoDetail);
+
       if (cargoDetail) {
         return !(weight < cargoDetail.min || weight > cargoDetail.max);
       }

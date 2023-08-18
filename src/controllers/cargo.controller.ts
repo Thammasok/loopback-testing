@@ -1,12 +1,5 @@
 import {service} from '@loopback/core';
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  repository,
-  Where,
-} from '@loopback/repository';
+import {Filter, FilterExcludingWhere, repository} from '@loopback/repository';
 import {
   get,
   getModelSchemaRef,
@@ -26,15 +19,6 @@ export class CargoController {
     @service(CargoService)
     public cargoService: CargoService,
   ) {}
-
-  @get('/cargos/count')
-  @response(200, {
-    description: 'Cargo model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(@param.where(Cargo) where?: Where<Cargo>): Promise<Count> {
-    return this.cargoRepository.count(where);
-  }
 
   @get('/cargos')
   @response(200, {

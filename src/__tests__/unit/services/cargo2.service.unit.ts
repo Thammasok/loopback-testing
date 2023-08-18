@@ -18,6 +18,8 @@ describe('Cargo service with Repository', () => {
   it('คีย์น้ำหนักน้อยกว่า ค่าน้ำหนักต่ำสุด (Min) ของรถส่งของ', async () => {
     const cargoId = 1;
     const carWeight = 5000;
+
+    // 3. Mock return data
     const cargoDetail = new Cargo({
       id: 1,
       name: 'กระบะ ตอนครึ่ง ',
@@ -26,13 +28,12 @@ describe('Cargo service with Repository', () => {
       max: 25000,
     });
 
-    // Stub FindById
+    // 4. Stub FindById
     const findById = cargoRepository2.stubs.findById;
     findById.resolves(cargoDetail);
 
     const result = await cargoService.checkPayloadByCargoId(cargoId, carWeight);
 
-    // console.log('aresult', result);
     expect(result).to.be.false();
     sinon.assert.calledWith(findById, cargoDetail.id);
   });
@@ -81,6 +82,7 @@ describe('Cargo service with Repository', () => {
     sinon.assert.calledWith(findById, cargoDetail.id);
   });
 
+  // 2. resetRepositories
   function resetRepositories() {
     cargoRepository2 = createStubInstance(CargoRepository);
     cargoService = new CargoService(cargoRepository2);

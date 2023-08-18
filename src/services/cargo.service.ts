@@ -30,7 +30,7 @@ export class CargoService {
         return !(weight < cargoDetail.min || weight > cargoDetail.max);
       }
     } catch (error) {
-      console.log('error', error);
+      throw new Error(error);
     }
   }
 }

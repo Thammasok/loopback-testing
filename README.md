@@ -1,8 +1,27 @@
-# @loopback/example-todo
+# Unit Testing in Loopback4
 
-This is the basic tutorial for getting started with Loopback 4!
+Basic tutorial สำหรับการเขียน Unit Testing ใน Loopback 4!
 
-## Overview
+## Table Contents
+
+- [Unit Testing in Loopback4](#unit-testing-in-loopback4)
+  - [Table Contents](#table-contents)
+  - [Todo example](#todo-example)
+    - [Overview](#overview)
+    - [Setup](#setup)
+    - [Tutorial](#tutorial)
+    - [Steps](#steps)
+    - [Try it out](#try-it-out)
+  - [Docker](#docker)
+  - [Code coverage](#code-coverage)
+
+---
+
+## Todo example
+
+ตัวอย่าง Unit Testing ของ Todo เป็นตัวอย่างจากทาง Loopack เองสามารถเข้าไปดูเพิ่มเติมได้ที่ [loopack/example](https://github.com/loopbackio/loopback-next/tree/master/examples)
+
+### Overview
 
 This tutorial demonstrates how to create a basic API for a todo list using
 LoopBack 4. You will experience how you can create REST APIs with just
@@ -10,7 +29,7 @@ LoopBack 4. You will experience how you can create REST APIs with just
 
 ![todo-tutorial-overview](https://loopback.io/pages/en/lb4/imgs/todo-overview.png)
 
-## Setup
+### Setup
 
 First, you'll need to install a supported vetestrsion of Node:
 
@@ -28,7 +47,7 @@ Lastly, you'll need to install the LoopBack 4 CLI toolkit:
 npm i -g @loopback/cli
 ```
 
-## Tutorial
+### Tutorial
 
 To follow this tutorial, begin with the
 [Create your app scaffolding](http://loopback.io/doc/en/lb4/todo-tutorial-scaffolding.html)
@@ -45,7 +64,7 @@ section.
 7. Bonus:
     [Integrate with a geo-coding service](http://loopback.io/doc/en/lb4/todo-tutorial-geocoding-service.html)
 
-## Try it out
+### Try it out
 
 If you'd like to see the final results of this tutorial as an example
 application, follow these steps:
@@ -78,14 +97,16 @@ continue with this tutorial!
 
 ## Docker
 
-Run Docker-compose
+การสร้าง Database ผ่าน Docker สำหรับการเขียน Unit Testing เพื่อทดสอบการทำงานเมื่อต้องเชื่อมต่อ Database
+
+- Run Docker compose
 
 ```bash
-docker-compose up -d
+docker compose up -d
 
 or
 
-docker-compose up -d --force-recreate
+docker compose up -d --force-recreate
 ```
 
 หลังจากที่ Run Docker ขึ้นมาแล้ว สามารถเข้าใช้งาน pgadmin ได้ผ่าน URL <http://localhost:5050/>
@@ -95,7 +116,7 @@ username: admin@example.com
 password: example
 ```
 
-Login เข้าใช้งาน Postgress
+- Login เข้าใช้งาน Postgress
 
 ```text
 host: postgres [Container name]
@@ -105,8 +126,43 @@ username: admin
 password: example
 ```
 
-Stop Docker-compose
+- Stop Docker compose
 
 ```bash
-docker-compose down -v
+docker compose down -v
 ```
+
+---
+
+## Code coverage
+
+@loopback/build สามารถเรียกใช้งาน [nyc](https://github.com/istanbuljs/nyc) ผ่าน command line โดยใช้คำสั่ง lb-nyc
+
+วิธีการ set up code coverage:
+
+1. สร้างไฟล์ .nycrc ใน root directory ของโปรเจค
+
+```json
+{
+  "include": ["dist"],
+  "exclude": ["dist/__tests__/"],
+  "extension": [".js", ".ts"],
+  "reporter": ["text", "html"],
+  "exclude-after-remap": false
+}
+
+```
+
+2. อัพเดท package.json scripts:
+
+```json
+    "precoverage": "npm test",
+    "coverage": "open coverage/index.html",
+    "coverage:ci": "lb-nyc report --reporter=text-lcov | coveralls",
+    "test": "lb-nyc npm run mocha",
+    "test:ci": "lb-nyc npm run mocha",
+    "mocha": "lb-mocha \"dist/__tests__/**/*.js\"",
+    "mocha:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+```
+
+กรณีที่ต้องการใช้งาน coverage:ci จะต้อง Setup [Coveralls](https://coveralls.io/) ก่อน

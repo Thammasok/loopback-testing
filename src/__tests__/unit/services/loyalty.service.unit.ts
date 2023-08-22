@@ -1,4 +1,4 @@
-import {expect} from '@loopback/testlab';
+import {createStubInstance, expect} from '@loopback/testlab';
 import {LoyaltyService} from '../../../services';
 
 /**
@@ -47,6 +47,25 @@ describe('Loyalty service: ทดสอบฟังก์ชันคำนว�
     const point = loyaltyService.calculatePointByPrice(price);
 
     // Assert
+    expect(point).to.equal(pointExpected);
+  });
+
+  it('4. ราคาสินค้าที่ซื้อเท่ากับ 999 บาท ได้แต้ม 9 แต้ม', () => {
+    // Arrange
+    const price = 999.0;
+    const pointRate = 10;
+    const pointExpected = 9;
+
+    const loyaltyServiceStub = createStubInstance(LoyaltyService);
+    const pointRateStub = loyaltyServiceStub.stubs.pointRateConfig
+      .onFirstCall()
+      .returns(pointRate);
+
+    // Act
+    const point = loyaltyService.calculatePointRateByPrice(price);
+
+    // Assert
+    expect(pointRateStub).called();
     expect(point).to.equal(pointExpected);
   });
 });

@@ -1,18 +1,17 @@
-import {createStubInstance, expect} from '@loopback/testlab';
+import {expect, sinon} from '@loopback/testlab';
 import {LoyaltyService} from '../../../services';
 
 /**
  * 1. ราคาสินค้าที่ซื้อเท่ากับ 50 บาท ได้แต้ม 0 แต้ม
  * 2. ราคาสินค้าที่ซื้อเท่ากับ 100 บาท ได้แต้ม 1 แต้ม
  * 3. ราคาสินค้าที่ซื้อเท่ากับ 999 บาท ได้แต้ม 9 แต้ม
+ * 4. ราคาสินค้าที่ซื้อเท่ากับ 999 บาท ได้แต้ม 99 แต้ม (Mock pointRateConfig)
  */
 
 describe('Loyalty service: ทดสอบฟังก์ชันคำนวนแต้มจากราคาสินค้า', () => {
   let loyaltyService: LoyaltyService;
 
-  before(() => {
-    loyaltyService = new LoyaltyService();
-  });
+  before(resetRepositories);
 
   it('1. ราคาสินค้าที่ซื้อเท่ากับ 50 บาท ได้แต้ม 0 แต้ม', () => {
     // Arrange
@@ -50,22 +49,24 @@ describe('Loyalty service: ทดสอบฟังก์ชันคำนว�
     expect(point).to.equal(pointExpected);
   });
 
-  it('4. ราคาสินค้าที่ซื้อเท่ากับ 999 บาท ได้แต้ม 9 แต้ม', () => {
+  it('4. ราคาสินค้าที่ซื้อเท่ากับ 999 บาท ได้แต้ม 99 แต้ม', () => {
     // Arrange
     const price = 999.0;
     const pointRate = 10;
-    const pointExpected = 9;
+    const pointExpected = 99;
 
-    const loyaltyServiceStub = createStubInstance(LoyaltyService);
-    const pointRateStub = loyaltyServiceStub.stubs.pointRateConfig
-      .onFirstCall()
-      .returns(pointRate);
+    // Mock pointRateConfig
+    const loyaltyServiceMock = sinon.mock(loyaltyService);
+    loyaltyServiceMock.expects('pointRateConfig').once().returns(pointRate);
 
     // Act
     const point = loyaltyService.calculatePointRateByPrice(price);
 
     // Assert
-    expect(pointRateStub).called();
     expect(point).to.equal(pointExpected);
   });
+
+  function resetRepositories() {
+    loyaltyService = new LoyaltyService();
+  }
 });

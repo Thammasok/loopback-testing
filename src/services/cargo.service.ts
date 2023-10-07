@@ -2,6 +2,11 @@ import {/* inject, */ BindingScope, injectable} from '@loopback/core';
 import {repository} from '@loopback/repository';
 import {CargoRepository} from '../repositories';
 
+export interface CargoDto {
+  geocode(payloadCar: {min: number; max: number}, carWeight: number): boolean;
+  checkPayloadByCargoId(cargoId: number, weight: number): Promise<boolean>;
+}
+
 @injectable({scope: BindingScope.TRANSIENT})
 export class CargoService {
   constructor(

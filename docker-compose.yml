@@ -12,10 +12,9 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: example
+      POSTGRES_DB: mydb
     volumes:
-      - ./dockers/init/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
-      - ./dockers/postgresql:/var/lib/postgresql/data
+      - ./dockers/postgresql:/docker-entrypoint-initdb.d/
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin4
@@ -25,8 +24,8 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: example
-    volumes:
-      - ./dockers/pgadmin:/var/lib/pgadmin
+    # volumes:
+    #   - ./dockers/pgadmin:/var/lib/pgadmin
 
 volumes:
   dockers:
